@@ -1,0 +1,121 @@
+
+
+
+<table class="table table-striped" *ngIf="DateBookedList.length!=0" >
+    <thead>
+        <tr>
+            <th>Id Rezerwacji</th>
+            <th>Zarezerwowana Data</th>
+            <th>Lokalizacja</th>                       
+            <th>Godzina Rozpoczęcia </th>
+            <th>Godzina Zakończenia</th>  
+            <th>Czy Zaakceptowane</th> 
+            <th>Opłać</th>
+            <th>Opcje</th>
+            
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let dataItem of DateBookedList">
+            <td>{{dataItem.id}}</td>
+            <td><time   [dateTime]="dataItem.date_booked">{{ dataItem.date_booked | date:'dd/MM/yyyy'}}</time></td>
+            <td>{{dataItem.localization}}</td>          
+            <td>{{dataItem.start_hour}}</td>         
+            <td>{{dataItem.end_hour }}</td> 
+            <td>
+                <p *ngIf="dataItem.accepted==true"> <img src="https://cdn.pixabay.com/photo/2012/04/26/19/45/check-42926__480.png" title="Potwierdzone" height="30px" width="30px" class="rounded float-left" alt="potwierdzenie"> </p>                
+                <p *ngIf="dataItem.accepted==null"> <img src="https://cdn.pixabay.com/photo/2013/07/12/12/38/question-mark-146034_960_720.png" title="Brak Odpowiedzi" height="40px" width="30px" class="rounded float-left" alt="nie wiadomo"> </p>
+                <p *ngIf="dataItem.accepted==false"> <img src="https://cdn.pixabay.com/photo/2012/04/02/16/12/x-24850_960_720.png" title="Odrzucone" height="30px" width="30px" class="rounded float-left" alt="odrzucono"> </p>            
+            </td>
+            <td>                
+                <button type="button"  (click)="pay(dataItem.id,dataItem.start_hour,dataItem.end_hour)" class="btn btn-success mr-2" *ngIf="dataItem.accepted==true && dataItem.paid==false"> Opłać </button>
+                <p *ngIf="dataItem.accepted==null"> Nie można <br> opłacić bez akceptacji <br> opiekuna</p>
+                <p *ngIf="dataItem.accepted==false">  </p> 
+                <p *ngIf="dataItem.paid==true"> <img src="https://cdn.pixabay.com/photo/2012/04/26/19/45/check-42926__480.png" title="Opłacone" height="30px" width="30px" class="rounded float-left" alt="Opłacone"></p>            
+            </td>
+            <td>
+                <button *ngIf="dataItem.accepted!=true" type="button" (click)="loaddate(dataItem.id)" class="btn btn-primary mr-2" data-toggle="modal" data-target="#exampleModal"> Edytuj </button>  
+                <button *ngIf="this.datetoremove(dataItem.date_booked) "  type="button" (click)="loaddate(dataItem.id)" class="btn btn-danger mr-2" data-toggle="modal" data-target="#example1Modal"> Usuń </button>                          
+            </td>
+            
+        </tr>
+    </tbody>
+    
+    </table>
+
+    <h3 class="text-center mt-5 font-weight-bold" *ngIf="DateBookedList.length==0"> Nie zarezerwowałeś jeszcze żadnego Terminu.</h3>
+    <h3 class="text-center mt-2 " *ngIf="DateBookedList.length==0"> Jeśli chcesz to zmienić przejdź do zakładki "Oferty" :D</h3>
+
+
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title" id="exampleModalLabel">Dane Rezerwacji</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <form #BookOfferForm="ngForm" (ngSubmit)="editdate(BookOfferForm.value,dateid)" class=" px-md-3 "> 
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control " name="localization" id="floatingInput" [(ngModel)]="localization" placeholder="Lokalizacja"  required  ngModule>
+                        <label>Adres </label>
+                      </div> 
+                      <div class="form-floating mb-3">
+                        <input type="date" class="form-control" 
+                        placeholder="Start Oferty" [(ngModel)]="date_booked" name="date_booked"  required ngModule>
+                        <label >Data Rezerwacji</label>
+                    </div>  
+                      <div class="form-floating mb-3">
+                        <input type="time" class="form-control" placeholder="Start Oferty" [(ngModel)]="start_hour" name="start_hour" required ngModule>
+                        <label >Godzina Rozpoczęcia</label>
+                    </div>
+    
+                    <div class="form-floating mb-3">
+                        <input type="time" class="form-control" placeholder="Godzina Zakończenia" [(ngModel)]="end_hour" name="end_hour" required ngModule>                               
+                        <label >Godzina Zakończenia</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="number" class="form-control" placeholder="Wiek" [(ngModel)]="years_old" name="years_old" required ngModule>
+                        <label >Wiek</label>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <label class="input-group-text">Info</label>
+                        <textarea [(ngModel)]="description" cols="50" rows="5" name="description"  class="form-control" aria-label="With textarea"></textarea>
+                      </div>  
+                    <button type="submit"  class="btn btn-success btn-lg mb-1">Aktualizuj</button>      
+                  </form>
+                
+                
+                                        
+                <button type="button" class="btn btn-danger  mx-3 " data-dismiss="modal">Anuluj</button>
+            </div>                    
+          </div>
+        </div>
+      </div>
+
+
+      <div class="modal fade" id="example1Modal" tabindex="-1" role="dialog" aria-labelledby="example1ModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title" id="example1ModalLabel">Na pewno chesz usunąć rezerwację ?</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                               
+                <button type="button" (click)="DeleteDateBooked(dateid)" class="btn btn-danger mb-1">Usuń Rezerwację</button>              
+                        
+                <button type="button" class="btn btn-secondary btn-lg mx-3 " data-dismiss="modal">Anuluj</button>
+            </div>                    
+          </div>
+        </div>
+      </div>

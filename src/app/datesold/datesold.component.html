@@ -1,0 +1,67 @@
+
+
+<table class="table table-striped" *ngIf="DateBookedList.length!=0" >
+    <thead>
+        <tr>
+            <th>Id Rezerwacji</th>
+            <th>Zarezerwowana Data</th>
+            <th>Lokalizacja</th>                       
+            <th>Godzina Rozpoczęcia </th>
+            <th>Godzina Zakończenia</th> 
+            <th>Wiek Podopiecznego</th>
+            <th>Opis</th> 
+            <th>Płatność</th> 
+            <th>Opcje</th> 
+          
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let dataItem of DateBookedList">
+            <td>{{dataItem.id}}</td>
+            <td><time  [dateTime]="dataItem.date_booked">{{ dataItem.date_booked | date:'dd/MM/yyyy'}}</time></td>
+            <td>{{dataItem.localization}}</td>          
+            <td>{{dataItem.start_hour}}</td>         
+            <td>{{dataItem.end_hour }}</td>  
+            <td>{{dataItem.years_old }}</td> 
+            <td ><div style="width:200px" >{{dataItem.description }}</div></td> 
+            <td>
+                <p *ngIf="dataItem.paid==true"> <img src="https://cdn.pixabay.com/photo/2012/04/26/19/45/check-42926__480.png" title="Opłacone" height="30px" width="30px" class="rounded float-left" alt="Opłacone"> </p>                                
+                <p *ngIf="dataItem.paid==false"> <img src="https://cdn.pixabay.com/photo/2012/04/02/16/12/x-24850_960_720.png" title="Nieopłacone" height="30px" width="30px" class="rounded float-left" alt="Nieopłacone"> </p>            
+            </td>          
+            <td>
+                <button *ngIf="dataItem.paid!=true" type="button" (click)="response(dataItem.id,1)" class="btn btn-success mt-2  mr-2"> Zaakceptuj </button>
+                <button *ngIf="dataItem.paid!=true" type="button" (click)="response(dataItem.id,2)" class="btn btn-danger mt-2 mr-2"> Odrzuć </button>
+                <button *ngIf="dataItem.accepted!=null && dataItem.paid==false" type="button" (click)="loaddate(dataItem.id)" class="btn btn-danger mt-2 mr-2" data-toggle="modal" data-target="#example1Modal"> Usuń </button>
+                <button *ngIf="this.datetoremove(dataItem.date_booked) && dataItem.paid==true "  type="button" (click)="loaddate(dataItem.id)" class="btn btn-danger mt-2 mr-2" data-toggle="modal" data-target="#example1Modal"> Usuń </button>
+            </td>
+           
+    
+        </tr>
+    </tbody>
+    
+    </table>
+
+    <h3 class="text-center mt-5 font-weight-bold" *ngIf="DateBookedList.length==0"> Nikt jeszcze nie złożył ci oferty współpracy.</h3>
+    <h3 class="text-center mt-2 " *ngIf="DateBookedList.length==0"> Sprawdź wkrótce.</h3>
+
+
+    <div class="modal fade" id="example1Modal" tabindex="-1" role="dialog" aria-labelledby="example1ModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title" id="example1ModalLabel">Na pewno chesz usunąć rezerwację ?</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                               
+                <button type="button" (click)="DeleteDateBooked(dateid)" class="btn btn-danger mb-1">Usuń Rezerwację</button>              
+                        
+                <button type="button" class="btn btn-secondary btn-lg mx-3 " data-dismiss="modal">Anuluj</button>
+            </div>                    
+          </div>
+        </div>
+      </div>

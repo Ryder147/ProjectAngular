@@ -1,0 +1,34 @@
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Id Oferty</th>
+            <th>User id</th>
+            <th>Lokalizacja</th>                       
+            <th>Początek Dostępności</th>
+            <th>Koniec Dostępności</th>  
+            <th>Grupa wiekowa</th>          
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let dataItem of OfferList">
+            <td>{{dataItem.id}}</td>
+            <td>{{dataItem.user}}</td>
+            <td>{{dataItem.localization}}</td>          
+            <td><time   [dateTime]="dataItem.av_start">{{ dataItem.av_start | date:'mediumDate'}}</time></td>           
+            <td><time   [dateTime]="dataItem.av_end">{{ dataItem.av_end | date:'mediumDate'}}</time></td> 
+            <td>
+                <p *ngIf="dataItem.babies==true"> Niemowlęta 0-2 </p>
+                <p *ngIf="dataItem.kids==true"> Dzieci 2+ </p>
+                <p *ngIf="dataItem.old==true"> Dorośli 50+ </p>            
+            </td>
+            <td>
+                <button type="button" (click)="stronaoferty(dataItem.id)" class="btn btn-light mr-1"> Wybierz </button>                
+            </td>
+    
+        </tr>
+    </tbody>
+    
+    </table>
+    
+  

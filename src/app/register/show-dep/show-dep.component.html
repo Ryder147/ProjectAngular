@@ -1,0 +1,85 @@
+<section class="h-100 h-custom" style="background-color: #8fc4b7;">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-lg-8 col-xl-6">
+          <div class="card rounded-3">
+            <img src="https://www.radosnedzieci.org.pl/upload/201511/kids_slide.jpg"
+              class="w-100" style="border-top-left-radius: .3rem; border-top-right-radius: .3rem;"
+              alt="Sample photo">
+            <div class="card-body p-4 p-md-5">
+                <h2>  Dane Konta </h2>
+ <!--  -->
+              <form #UserForm="ngForm" (ngSubmit)="UpdateUser(UserForm.value)" class=" px-md-3 "> 
+
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control " name="email" id="floatingInput" [(ngModel)]="email" placeholder="Email"  required  ngModule>
+                    <label for="floatingInput">Email </label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <input type="text" class="form-control" placeholder="Login" [(ngModel)]="login" name="login" id="login" required ngModule>
+                    <label for="login">Login</label>
+                  </div>
+                 
+
+                  <div class="form-floating mb-3">
+                    <input type="text" class="form-control" placeholder="Imię" [(ngModel)]="first_name" name="first_name" id="first_name"  required ngModule>
+                    <label >Imię</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" placeholder="Nazwisko" [(ngModel)]="last_name" name="last_name" id="last_name"  required ngModule>
+                    <label >Nazwisko</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="date" class="form-control" placeholder="Data Urodzenia" [(ngModel)]="birth_date" name="birth_date" id="birth_date"  required ngModule>
+                    <label >Data Urodzenia</label>
+                </div>  
+
+                <div class="form-floating mb-3">
+                  <input type="number" class="form-control" placeholder="Numer Telefonu" [(ngModel)]="phonenumber" name="phonenumber" id="phonenumber"  required ngModule>
+                  <label >Numer Telefonu</label>
+              </div>
+
+              <div class="form-floating mb-5">
+                <input type="text" class="form-control" placeholder="Link do zdjęcia profilowego" [(ngModel)]="photolink" name="photolink" id="photolink"  required ngModule>
+                <label >Link do zdjęcia profilowego</label>
+            </div>         
+  
+                
+                <div class="button-box col-lg-12">
+                    <button type="submit"  class="btn btn-success btn-lg mb-1">Aktualizuj</button>                   
+                    <a  class="btn btn-warning mx-2" role="button" routerLink="changePassword">Zmiana Hasła</a> 
+                    <button type="button" class="btn btn-danger " data-toggle="modal" data-target="#exampleModal">Usuń Konto</button>
+                </div>
+  
+              </form>
+             
+              
+              <!-- Modal -->
+              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h3 class="modal-title" id="exampleModalLabel">Na pewno chcesz usunąć Konto ?</h3>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                        <button type="button" (click)="DeleteAccount()" class="btn btn-danger mb-1">Usuń Konto</button>              
+                        
+                        <button type="button" class="btn btn-secondary btn-lg mx-3 " data-dismiss="modal">Anuluj</button>
+                    </div>                    
+                  </div>
+                </div>
+              </div>
+              
+  
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

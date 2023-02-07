@@ -1,0 +1,53 @@
+
+<div class='container'>
+    <h1 class='d-flex justify-content-center'>Opiekunator</h1>
+    <h3 class='d-flex justify-content-center text-center'>Gdy nie ma czasu a dziecko trzeba odrewać od monitora <br> dzwoń do Opiekunatora !!</h3>
+  </div>
+ 
+  <nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" routerLink="">Opiekunator</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" routerLink="">Home</a>
+          </li>       
+          <li class="nav-item">
+            <a class="nav-link" *ngIf="authService.isLoggedIn$ | async " routerLink="offers">Oferty</a>
+          </li>
+          
+          <li class="nav-item">
+            <a class="nav-link" *ngIf="authService.isLoggedIn$ | async " routerLink="add-offer">Dodaj Ofertę</a>
+          </li>
+          
+          <li class="nav-item">
+            <a class="nav-link" *ngIf="authService.isLoggedIn$ | async " routerLink="myoffers">Moje Oferty</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" *ngIf="authService.isLoggedIn$ | async " routerLink="datebooked">Moje Rezerwacje</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" *ngIf="authService.isLoggedIn$ | async " routerLink="datesold">Oferty Pracy</a>
+          </li>
+
+
+        </ul>       
+        <div class="navbar-expand-lg " >  
+          <button class="btn btn-primary float-rigth  "  *ngIf="authService.isNotLoggedIn$ | async "  routerLink="login">Log In</button>     
+          <button class="btn btn-dark float-rigth mx-2 " *ngIf="authService.isNotLoggedIn$ | async" routerLink="register">Rejestracja</button>
+          <button class="btn btn-primary float-rigth  "  *ngIf="authService.isLoggedIn$ | async " routerLink="userDetails" >Szczegóły Konta</button>
+          <button class="btn btn-dark float-rigth mx-2 "  *ngIf="authService.isLoggedIn$ | async " (click)="LogOut()" >Log Out</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+  
+  
+  
+  
+  
+  
+  

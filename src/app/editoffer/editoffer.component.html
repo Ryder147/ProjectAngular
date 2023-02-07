@@ -1,0 +1,90 @@
+<section class="h-100 h-custom" style="background-color: #8fc4b7;">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-lg-8 col-xl-6">
+          <div class="card rounded-3">
+            <img src="https://www.radosnedzieci.org.pl/upload/201511/kids_slide.jpg"
+              class="w-100" style="border-top-left-radius: .3rem; border-top-right-radius: .3rem;"
+              alt="Sample photo">
+            <div class="card-body p-4 p-md-5">
+                <h2>Dane oferty </h2>
+ <!--  -->
+              <form #EditOfferForm="ngForm" (ngSubmit)="EditOffer(EditOfferForm.value)" class=" px-md-3 "> 
+
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control " name="localization" id="floatingInput" [(ngModel)]="localization" placeholder="Lokalizacja"  required  ngModule>
+                    <label>Lokalizacja </label>
+                  </div>
+                  <div class="input-group mb-3">
+                    <span class="input-group-text">Opis Oferty</span>
+                    <textarea [(ngModel)]="description" cols="50" rows="5" name="description"  class="form-control" aria-label="With textarea"></textarea>
+                  </div>
+                  <div class="input-group mb-3">
+                    <span class="input-group-text">Referencje</span>
+                    <textarea [(ngModel)]="reference" cols="50" rows="3" name="reference" class="form-control" aria-label="With textarea"></textarea>
+                  </div>
+
+                  <div class="form-floating mb-3">
+                    <input type="date" class="form-control" placeholder="Start Oferty" [(ngModel)]="av_start" name="av_start" id="av_start"  required ngModule>
+                    <label >Start Oferty</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="date"  class="form-control" placeholder="Koniec Oferty" [(ngModel)]="av_end" name="av_end" id="av_end"  required ngModule>
+                    <label >Koniec Oferty</label>
+                </div>                
+
+                <div class="form-floating mb-3">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" [(ngModel)]="babies" name="babies" id="flexSwitchCheckDefault">
+                        <label class="form-check-label" for="flexSwitchCheckDefault">Niemowlęta 0-2</label>
+                      </div>                  
+                </div> 
+                
+                <div class="form-floating mb-3">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" [(ngModel)]="kids" name="kids" id="flexSwitchCheckDefault">
+                        <label class="form-check-label" for="flexSwitchCheckDefault">Dzieci 2+</label>
+                      </div>                  
+                </div> 
+
+                <div class="form-floating mb-3">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" [(ngModel)]="old" name="old" id="flexSwitchCheckDefault">
+                        <label class="form-check-label" for="flexSwitchCheckDefault">Dorośli 50+</label>
+                      </div>                  
+                </div> 
+  
+                <button type="submit"  class="btn btn-success btn-lg mb-1">Aktualizuj Ofertę</button>
+                <button type="button" class="btn btn-danger ml-2 " data-toggle="modal" data-target="#exampleModal">Usuń Ofertę</button>          
+            
+            </form>
+
+            
+            <!--Modal -->
+              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h3 class="modal-title" id="exampleModalLabel">Na pewno chcesz usunąć Ofertę ?</h3>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                        <button type="button" (click)="DeleteOffer()" class="btn btn-danger mb-1">Usuń Ofertę</button>              
+                        
+                        <button type="button" class="btn btn-secondary btn-lg mx-3 " data-dismiss="modal">Anuluj</button>
+                    </div>                    
+                  </div>
+                </div>
+              </div>
+              
+  
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

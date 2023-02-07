@@ -1,0 +1,128 @@
+
+
+<div class="container">
+	<div class="row product-detail-2 mt-5">
+		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="wrapper">
+                <div class="vendor-logo">                    
+                    <img src={{photolink}}>
+                </div>
+                <div class="row">
+                    <h1> {{UserInformation.first_name}} {{UserInformation.last_name}} {{age}}</h1>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 text-left">
+                        <div class="product-price">
+                            <span>Stawka Godzinowa</span><br/> 50 zł
+                        </div>
+                    </div>
+                    <div class="col-lg-6 text-middle">
+                        <button type="button" class="btn btn-lg btn-success btn-lg " data-toggle="modal" data-target="#exampleModal">Zarezerwuj</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 mt-3 col-sm-6 col-xs-12">
+            <div class="wrapper">
+                
+                <div class="row">
+                    <div class="col-lg-12"> 
+                      <h3>Miejscowość :</h3>
+                      <div class="product-stock">
+                         <p>{{OfferInformation.localization}}</p>
+                      </div>
+
+                        <h3>Opis Oferty:</h3>
+                        <div class="product-descriptions">
+                        <p>{{OfferInformation.description}}    </p>
+                        <h3 *ngIf="OfferInformation.reference!=null">Rekomendacje:</h3>
+                        <div class="product-descriptions">
+                        <p>{{OfferInformation.reference}}    </p>
+                        </div>
+                        <h3>Początek Dostępności:</h3>
+                        <div class="product-stock">                          
+                           <time   [dateTime]="OfferInformation.av_start">{{ OfferInformation.av_start | date:'dd/MM/yyyy'}}</time>
+                        </div>
+                        <h3>Koniec Dostępności:</h3>
+                        <div class="product-stock">                          
+                           <time   [dateTime]="OfferInformation.av_end">{{ OfferInformation.av_end | date:'dd/MM/yyyy'}}</time>
+                        </div>
+
+                        <h3>Kategorie Wiekowe:</h3>
+                        <div class="product-specifications">
+                            <p *ngIf="OfferInformation.babies==true"> Niemowlęta 0-2 </p>
+                            <p *ngIf="OfferInformation.kids==true"> Dzieci 2+ </p>
+                            <p *ngIf="OfferInformation.old==true"> Dorośli 50+ </p>   
+                        </div>
+                        <h3>Utworzono:</h3>
+                        <div class="product-stock">                          
+                           <time   [dateTime]="OfferInformation.create_time">{{ OfferInformation.create_time | date:'dd/MM/yyyy'}}</time>
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+</div>
+
+
+
+              <!-- Modal -->
+              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h3 class="modal-title" id="exampleModalLabel">Uzupełnij dane Rezerwacji</h3>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                        <form #BookOfferForm="ngForm" (ngSubmit)="BookOffer(BookOfferForm.value)" class=" px-md-3 "> 
+
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control " name="localization" id="floatingInput" [(ngModel)]="localization" placeholder="Lokalizacja"  required  ngModule>
+                                <label>Adres </label>
+                              </div> 
+                              <div class="form-floating mb-3">
+                                <input type="date" class="form-control" min="{{OfferInformation.av_start | date:'yyyy-MM-dd'}}" max="{{OfferInformation.av_end | date:'yyyy-MM-dd'}}"
+                                placeholder="Start Oferty" [(ngModel)]="date_booked" name="date_booked"  required ngModule>
+                                <label >Data Rezerwacji</label>
+                            </div>                      
+                              
+            
+                              <div class="form-floating mb-3">
+                                <input type="time" class="form-control" placeholder="Start Oferty" [(ngModel)]="start_hour" name="start_hour" required ngModule>
+                                <label >Godzina Rozpoczęcia</label>
+                            </div>
+            
+                            <div class="form-floating mb-3">
+                                <input type="time" class="form-control" placeholder="Godzina Zakończenia" [(ngModel)]="end_hour" name="end_hour" required ngModule>                               
+                                <label >Godzina Zakończenia</label>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input type="number" class="form-control" placeholder="Wiek" [(ngModel)]="years_old" name="years_old" required ngModule>
+                                <label >Wiek</label>
+                            </div>
+
+                            <div class="input-group mb-3">
+                                <label class="input-group-text">Info</label>
+                                <textarea [(ngModel)]="description" cols="50" rows="5" name="description" placeholder="Napisz jak podopieczny ma na imię co lubi robić czego byś oczekiwał od opiekuna"  class="form-control" aria-label="With textarea"></textarea>
+                              </div>         
+                             
+              
+                            <button type="submit"  class="btn btn-success btn-lg mb-1">Zarezerwuj</button>
+              
+                          </form>
+                        
+                        
+                                                
+                        <button type="button" class="btn btn-danger  mx-3 " data-dismiss="modal">Anuluj</button>
+                    </div>                    
+                  </div>
+                </div>
+              </div>
